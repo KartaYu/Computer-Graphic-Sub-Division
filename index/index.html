@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>2D Sierpinski Gasket with slider tessellation, rotation, twist and polygon selection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 vPosition;
+        varying vec4 fColor;
+         
+        void main() {
+            fColor = vec4((vPosition.xyz+1.0)/2.0,1.0);
+            gl_Position = vPosition;        
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec4 fColor;
+
+        void main() {
+            gl_FragColor = fColor;
+        }
+    </script>
+    <script type="text/javascript" src="../common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../common/initShaders.js"></script>
+    <script type="text/javascript" src="../common/MV.js"></script>
+    <script type="text/javascript" src="twist.js"></script>
+
+</head>
+
+<body style="background:#D3D3D3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class=".col-xl-col-12 col-md-8">
+                <canvas id="gl-canvas" width="800" height="800">
+                    Oops ... your browser doesn't support the HTML5 canvas element
+                </canvas>
+            </div>
+            <div class="col-6 col-md-4">
+                <h1>Settings</h1>
+                <form id="settings">
+                    Number of sub divisions (level of tessellations):
+                    <br /><br />
+                    <input id="numDivisions" name="numDivisionsr" type="range" min="0" max="7" value="0" step="1"
+                        oninput="subdivisionsBox.value=numDivisions.value" />
+                    <input id="subdivisionsBox" name="subdivisionsBox" type="text" value="0" maxlength="2" size="4"
+                        readonly />
+
+
+                    <p></p>
+                    <p></p>
+
+                    Angle:
+                    <br /><br />
+                    <input id="angleSlider" name="angleSlider" type="range" min="0" max="360" value="0" step="1"
+                        oninput="angleBox.value=angleSlider.value" />
+                    <input id="angleBox" name="angleBox" type="text" value="0" maxlength="3" size="4" readonly />
+
+                    <p></p>
+                    <p></p>
+
+                    Twist:
+                    <br /><br />
+                    <input type="radio" name="twist" id="radioBtnY" value=true checked="unchecked" /> yes
+                    <input type="radio" name="twist" id="radioBtnN" value=false checked="checked" /> no
+
+                    <p></p>
+                    <p></p>
+
+                    Polygons:
+                    <br /><br />
+                    <select name="polygonShape" id="polygonShape">
+                        <option value="3" selected>Triangle (3)</option>
+                        <option value="4">Tetragon (4)</option>
+                    </select>
+
+                    <br /><br />
+                    <button id="reset" value="reset" type="button" class="btn btn-primary">Reset</button>
+
+                </form>
+                <footer class="footer">
+                    <div class="container">
+                        <span class="text-muted" style="text-align:center">Copyright ©：G.D YU</span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        document.getElementById('reset').onclick = function () {
+            document.getElementById('numDivisions').value = 0;
+            document.getElementById('angleSlider').value = 0;
+            document.getElementById('subdivisionsBox').value = 0;
+            document.getElementById('angleBox').value = 0;
+            document.getElementById('polygonShape').value = 3;
+            document.getElementById('radioBtnN').checked = true;
+            // .... etc
+        };
+
+    </script>
+
+</body>
+
+
+</html>
