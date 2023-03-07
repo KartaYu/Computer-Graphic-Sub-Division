@@ -1,5 +1,6 @@
 # Computer-Graphic-Sub-Division
-電腦圖學練習
-## 開發環境
+## Environment
 - WebGL
 - Three.js
+### Screen Shot
+-![image](https://github.com/KartaYu/Computer-Graphic-Sub-Division/blob/main/screenshot.png)
